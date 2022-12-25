@@ -11,7 +11,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class ThreadExample extends AppCompatActivity {
+
+    ExecutorService service = Executors.newFixedThreadPool(3);
 
     int mCounter;
 
@@ -38,7 +46,7 @@ public class ThreadExample extends AppCompatActivity {
 
     }
 
-    public void onClick(View view) {
+    public void onClick(View view) throws ExecutionException, InterruptedException {
 
         Runnable runnable = new Runnable() {
             @Override
@@ -64,8 +72,15 @@ public class ThreadExample extends AppCompatActivity {
             }
         };
 
-        Thread thread = new Thread(runnable);
-        thread.start();
+//        Thread thread = new Thread(runnable);
+//        thread.start();
+
+        // service.execute(runnable);
+
+        // если надо, чтобы один поток ждал другой или блокировать другой поток
+        Future future = service.submit(runnable);
+
+        // future.get(); - если нет future.get, то submit не блокируется
 
 
 
