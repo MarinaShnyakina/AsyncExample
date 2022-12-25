@@ -18,6 +18,11 @@ public class AsyncTaskExample extends AppCompatActivity {
         // в отдельном потоке запускает логику doInBackground
     }
 
+
+    public void onClick(View view) {
+        //TODO
+    }
+
 }
 
 class MyAsyncTask extends AsyncTask<String, Integer, Integer> {
